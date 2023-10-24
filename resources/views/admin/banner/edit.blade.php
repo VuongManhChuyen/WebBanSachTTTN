@@ -9,16 +9,6 @@
             @csrf
             @method('PUT')
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tên</label>
-                <input type="text" name="name" value="{{$banner->name}}" class="form-control" 
-                   >
-                   @error('name')
-                   <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                <div class="form-text">
-                </div>
-            </div>
-            <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Image</label><br>
                 <img src="{{asset('/storage/images/'.$banner->img)}}" alt="" style="height: 100px;width:100px;">
                 <input type="file" name="img" class="form-control" 

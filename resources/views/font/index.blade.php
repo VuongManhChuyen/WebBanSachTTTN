@@ -3,7 +3,7 @@
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="hero__slider owl-carousel">
-          {{-- <div class="hero__items set-bg" data-setbg="{{asset('/storage/images/'.$banner[0]->img)}}"> --}}
+          <div class="hero__items set-bg" data-setbg="{{asset('/storage/images/'.$banner[0]->img)}}">
             <div class="container">
               <div class="row">
                 <div class="col-xl-5 col-lg-7 col-md-8">
@@ -29,7 +29,7 @@
               </div>
             </div>
           </div>
-          {{-- <div class="hero__items set-bg" data-setbg="{{asset('/storage/images/'.$banner[1]->img)}}"> --}}
+          <div class="hero__items set-bg" data-setbg="{{asset('/storage/images/'.$banner[1]->img)}}">
             <div class="container">
               <div class="row">
                 <div class="col-xl-5 col-lg-7 col-md-8">
@@ -101,8 +101,8 @@
       </section>
       <!-- Banner Section End -->
   
-      <!-- book Section Begin -->
-      <section class="book spad">
+      <!-- Product Section Begin -->
+      <section class="product spad">
         <div class="container">
           <div class="row">
             <div class="col-lg-12">
@@ -119,7 +119,7 @@
   
           {{-- aaaaaaa --}}
   
-          <div class="row book__filter">
+          <div class="row product__filter">
             
             @foreach ($book as $book)
                 
@@ -127,14 +127,14 @@
             <div
               class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix {{$book->category->name_category}}"
             >
-              <div class="book__item">
+              <div class="product__item">
                 
                 <div
-                  class="book__item__pic set-bg"
+                  class="product__item__pic set-bg"
                   data-setbg="{{asset('/storage/images/'.$book->img)}}"
                 >
                   {{-- <span class="label">New</span> --}}
-                  <ul class="book__hover">
+                  <ul class="product__hover">
                     <li>
                       <a href="#"><img src="font/img/icon/heart.png" alt="" /></a>
                     </li>
@@ -149,7 +149,7 @@
                     </li>
                   </ul>
                 </div>
-                <div class="book__item__text">
+                <div class="product__item__text">
                   <h6>{{$book->name_book}}</h6>
                   <a href="#" class="add-cart">+ Add To Cart</a>
                   <div class="rating">
@@ -160,7 +160,7 @@
                     <i class="fa fa-star-o"></i>
                   </div>
                   <h5>${{$book->price}}</h5>
-                  <div class="book__color__select">
+                  <div class="product__color__select">
                     <label for="pc-1">
                       <input type="radio" id="pc-1" />
                     </label>
@@ -178,7 +178,7 @@
           </div>
         </div>
       </section>
-      <!-- book Section End -->
+      <!-- Product Section End -->
   
       <!-- Categories Section Begin -->
       <section class="categories spad">
@@ -195,7 +195,7 @@
             </div>
             <div class="col-lg-4">
               <div class="categories__hot__deal">
-                <img src="font/img/book-sale.png" alt="" />
+                <img src="font/img/product-sale.png" alt="" />
                 <div class="hot__deal__sticker">
                   <span>Sale Of</span>
                   <h5>$29.99</h5>

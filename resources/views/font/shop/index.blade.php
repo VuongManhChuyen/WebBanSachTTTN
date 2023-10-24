@@ -201,38 +201,38 @@
                             </div>
                         </div>
                         <div class="row">
-                            @foreach ($sanpham as $sanpham)
+                            @foreach ($book as $book)
                                 
                            
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <form action="{{route('cart.store',$sanpham->id)}}" method="POST">
+                                    <form action="{{route('cart.store',$book->id)}}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{$sanpham->id}}">
-                                        <input class="hidden" type="number" name="product_price" value="{{$sanpham->khuyenmai->price_khuyenmai}}">
+                                        <input type="hidden" name="product_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="price" value="{{$book->promotion->price_promotion}}">
                                         <input class="hidden" type="number" name="product_quantity" value="1">
-                                        @if (Auth::user())
+                                        {{-- @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
-                                        @endif
-                                    <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$sanpham->img)}}">
+                                        @endif --}}
+                                    <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$book->img)}}">
                                         <ul class="product__hover">
                                             <li><a href="#"><img src="font/img/icon/heart.png" alt=""></a></li>
                                             <li><a href="#"><img src="font/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                             </li>
-                                            <li><a href="{{ route('shop.show', $sanpham->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
+                                            <li><a href="{{ route('shop.show', $book->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6>{{$sanpham->name_product}}</h6>
+                                        <h6>{{$book->name_book}}</h6>
                                         {{-- <a href="{{route('cart.store',$sanpham->id)}}" class="add-cart">+ Add To Cart</a> --}}
 
 
-                                        @if (Auth::user() && Auth::user()->role_id==1)
+                                        {{-- @if (Auth::user() && Auth::user()->role_id==1)
                                             <button class="add-cart">+ Add To Cart</button>
                                         @endif
                                         @if (!Auth::user())
                                             <button class="add-cart">+ Add To Cart</button>
-                                        @endif
+                                        @endif --}}
                                         
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
@@ -241,9 +241,9 @@
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
-                                        <h5><strike>${{$sanpham->price}}</strike>  $ {{$sanpham->khuyenmai->price_khuyenmai}}</h5>
+                                        <h5><strike>${{$book->price}}</strike>  $ {{$book->promotion->price_promotion}}</h5>
                                         <div class="">
-                                            <a href="{{route('shop.show',$sanpham->id)}}">Chi tiết</a>
+                                            <a href="{{route('shop.show',$book->id)}}">Chi tiết</a>
                                         </div>
                                     </div>
                                 </form>

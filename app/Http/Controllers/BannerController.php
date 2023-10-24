@@ -14,13 +14,13 @@ class BannerController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id==2){
+        // if(Auth::user()->role_id==2){
             $banner = Banner::get();
             return view('admin.banner.list',['banner' => $banner]);
-        }
-        else{
-            return redirect()->route('login');
-        }
+        // }
+        // else{
+        //     return redirect()->route('login');
+        // }
         
     }
 
@@ -36,14 +36,12 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BannerRequest $request)
+    public function store(Request $request)
     {
-        $name = $request->input('name');      
         $img = $request->file('img')->getClientOriginalName();
         $request->file('img')->storeAs('public/images', $img);
 
         $data = [
-            'name' => $name,
             'img' => $img,
         ];
         Banner::create($data);
@@ -71,12 +69,8 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBannerRequest $request, Banner $banner)
+    public function update(Request $request, Banner $banner)
     {
-        $name = $request->input('name');     
-        $banner->fill([
-            'name' => $name,
-            ])->save();
             if ($request->file('img') !== null) {
                 $img = $request->file('img')->getClientOriginalName(); //lay ten file
                 $request->file('img')->storeAs('public/images', $img); //luu file vao duong dan public/images voi ten $logo

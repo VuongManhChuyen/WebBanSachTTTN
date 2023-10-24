@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
@@ -13,33 +14,33 @@ class ShopController extends Controller
     /**
      * Display a listing of the resource.
      */
-    protected $product;
-    public function __construct(Product $product)
+    protected $book;
+    public function __construct(Book $book)
     {
-        $this->product = $product;
+        $this->book = $book;
     }
     public function index()
     {
-        $sanpham = Product::get();
+        $book = Book::get();
         $category = Category::get();
-        $sanpham->load('Khuyenmai');
+        $book->load('promotion');
         
                 //tính tổng tiền của giỏ hàng
-                if(Auth::user()){
-                    $user_id = auth()->user()->id;
-                    $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
-                    $totalPrice = 0;
-                    $totalQuantity = 0;
+                // if(Auth::user()){
+                //     $user_id = auth()->user()->id;
+                //     $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
+                //     $totalPrice = 0;
+                //     $totalQuantity = 0;
             
-                    foreach ($cartItems as $cartItem) {
-                        $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
-                        $totalQuantity += $cartItem->product_quantity ;
-                    }
-                    return view('font.shop.index',['sanpham' => $sanpham,'category' => $category , 'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
-                }
-                else{
-                    return view('font.shop.index',['sanpham' => $sanpham,'category' => $category]);
-                }
+                //     foreach ($cartItems as $cartItem) {
+                //         $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
+                //         $totalQuantity += $cartItem->product_quantity ;
+                //     }
+                //     return view('font.shop.index',['sanpham' => $sanpham,'category' => $category , 'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
+                // }
+                // else{
+                    return view('font.shop.index',['book' => $book,'category' => $category]);
+                // }
     }
 
     /**
@@ -65,7 +66,7 @@ class ShopController extends Controller
     public function show($id)
     {
         $sanpham =  $this->product->with('khuyenmai')->find($id);
-        $products = Product::where('category_id', $sanpham->category_id)
+        $products = Book::where('category_id', $sanpham->category_id)
         ->where('id', '<>', $sanpham->id)
         ->take(4)
         ->get();

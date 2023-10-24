@@ -9,16 +9,6 @@
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Tên</label>
-                <input type="text" name="name" class="form-control" 
-                   >
-                   @error('name')
-                   <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                <div class="form-text">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Tên</label>
                 <input type="file" name="img" class="form-control" 
                    >
                    @error('img')

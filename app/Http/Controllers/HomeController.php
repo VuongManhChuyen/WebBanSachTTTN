@@ -23,9 +23,9 @@ class HomeController extends Controller
         $category = Category::get();
         $promotion = Promotion::get();
         $author = Author::get();
-        // $banner = Banner::get();
+        $banner = Banner::get();
         $book->load('category','promotion');
-        return view('font.index' ,compact('book'), ['book' => $book,'category' => $category,'promotion' => $promotion,'author' => $author]);
+        return view('font.index' ,compact('book'), ['book' => $book,'category' => $category,'promotion' => $promotion,'author' => $author ,'banner' => $banner]);
         //tính tổng tiền của giỏ hàng
     //     if(Auth::user()){
     //     $user_id = auth()->user()->id;
