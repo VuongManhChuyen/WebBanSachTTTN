@@ -14,22 +14,22 @@
           <div class="col-lg-6 col-md-5">
             <div class="header__top__right">
               <div class="header__top__links">
-                {{-- @if (!Auth::user()) --}}
-                <a href="login">Sign in</a>
-                <a href="register">Register</a>
-                {{-- @else --}}
+                @if (!Auth::user())
+                <a href="login">Đăng Nhập</a>
+                <a href="register">Đăng Kí</a>
+                @else
               </div>
               <div class="header__top__hover">
                 
-                {{-- <span>{{Auth::user()->name}} <i class="arrow_carrot-down"></i></span> --}}
+                <span>{{Auth::user()->name}} <i class="arrow_carrot-down"></i></span>
                 <ul>
                   <li><a href="logout">Logout</a></li>
-                  {{-- @if (Auth::user()->role_id==2) --}}
+                  @if (Auth::user()->role_id==2)
                   <li><a href="/adminn">ADMIN</a></li>
-                  {{-- @endif --}}
+                  @endif
                   <li><a href="#">Profile</a></li>
                 </ul>
-                {{-- @endif --}}
+                @endif
                 
               </div>
             </div>

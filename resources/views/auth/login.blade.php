@@ -3,7 +3,7 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <h1 class="text-center">Đăng Nhập</h1>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -46,6 +46,5 @@
             </x-primary-button>
         </div>
     </form>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</x-guest-layout>  
+</x-guest-layout>
 @endsection

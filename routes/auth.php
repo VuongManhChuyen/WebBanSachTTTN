@@ -1,22 +1,5 @@
 <?php
 
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CouponsController;
-use App\Http\Controllers\PromotionController;
-use App\Http\Controllers\BookController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ShowCateController;
-use App\Http\Controllers\ShowAuthorController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\TaiKhoanController;
-use App\Http\Controllers\AuthorController;
-
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -26,41 +9,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-Route::get('/',[HomeController::class,'index']);
-Route::get('/login',[HomeController::class,'checkUserType']);
-// Route::middleware('auth')->group(function () {
-    Route::resource('adminn',AdminController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('book', BookController::class);
-    Route::resource('promotion', PromotionController::class);
-    Route::resource('author', AuthorController::class);
-    Route::resource('coupon', CouponsController::class);
-    Route::resource('role', RoleController::class);
-    Route::resource('banner', BannerController::class);
-    Route::resource('cart', CartController::class);
-    Route::resource('checkout', CheckoutController::class);
-    Route::resource('hoadon', OrderController::class);
-   
-// });
-
-Route::resource('shop', ShopController::class);
-Route::resource('showCate', ShowCateController::class);
-Route::resource('showAuthor', ShowAuthorController::class);
-Route::get('/search', [SearchController::class, 'search']);
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -105,8 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
-
-require __DIR__.'/auth.php';
