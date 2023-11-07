@@ -10,8 +10,10 @@
                     @if ($message = Session::get('success'))
                     <div class="alert alert-light">
                         <h4 class="text-center">{{ $message }}</h4>
+                        
                     </div>
                 @endif
+                <h4 class="text-center">Kết quả tìm thấy {{(count($showCate))}} Sản Phẩm</h4>
                   </div>
                 </div>
               </div>
@@ -25,7 +27,7 @@
                     <div class="col-lg-3">
                         <div class="shop__sidebar">
                             <div class="shop__sidebar__search">
-                                <form action="shop/search" method="get">
+                                <form action="/search" method="get">
                                     <input type="text" name="keyword" placeholder="Search...">
                                     <button type="submit"><span class="icon_search"></span></button>
                                 </form>
@@ -34,13 +36,13 @@
                             <div class="shop__sidebar__accordion">
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
-                                        <div class="text-xl text-black-50 card-heading">
-                                            <a>Danh Mục</a>
+                                        <div class="card-heading">
+                                            <a>THể LOẠI</a>
                                         </div>
                                         <div>
                                             <div class="card-body">
                                                 <div class="shop__sidebar__categories">
-                                                    <ul>
+                                                    <ul class="nice-scroll">
                                                         @foreach ($category as $category)
                                                         <li><a href="{{ route('showCate.show', $category->id) }}">{{$category->name_category}}</a></li>
                                                         @endforeach
@@ -49,16 +51,20 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="shop__sidebar__accordion">
+                                <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-heading">
-                                            <a>Tác Giả</a>
+                                            <a>TÁC GIẢ</a>
                                         </div>
                                         <div>
                                             <div class="card-body">
-                                                <div class="shop__sidebar__brand">
-                                                    <ul>
+                                                <div class="shop__sidebar__categories">
+                                                    <ul class="nice-scroll">
                                                         @foreach ($author as $author)
-                                                        <li><a href="showAuthor/{{$author->id}}">{{$author->name_author}}</a></li>
+                                                        <li><a href="{{ route('showAuthor.show', $author->id) }}">{{$author->name_author}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -90,19 +96,19 @@
                             </div>
                         </div>
                         <div class="row">
-                            @foreach ($book as $book)
+                            @foreach ($showCate as $book)
                                 
                            
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <form action="{{route('cart.store',$book->id)}}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{$book->id}}">
+                                        <input type="hidden" name="book_id" value="{{$book->id}}">
                                         <input class="hidden" type="number" name="price" value="{{$book->promotion->price_promotion}}">
-                                        <input class="hidden" type="number" name="product_quantity" value="1">
-                                        {{-- @if (Auth::user())
+                                        <input class="hidden" type="number" name="quantity" value="1">
+                                        @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
-                                        @endif --}}
+                                        @endif
                                     <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$book->img)}}">
                                         <ul class="product__hover">
                                             <li><a href="#"><img src="font/img/icon/heart.png" alt=""></a></li>
@@ -139,44 +145,6 @@
                                 </div>
                             </div>
                             @endforeach
-
-                            {{-- <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item sale">
-                                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                                        <span class="label">Sale</span>
-                                        <ul class="product__hover">
-                                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                            </li>
-                                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <h6>Multi-pocket Chest Bag</h6>
-                                        <a href="#" class="add-cart">+ Add To Cart</a>
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <h5>$43.48</h5>
-                                        <div class="product__color__select">
-                                            <label for="pc-7">
-                                                <input type="radio" id="pc-7">
-                                            </label>
-                                            <label class="active black" for="pc-8">
-                                                <input type="radio" id="pc-8">
-                                            </label>
-                                            <label class="grey" for="pc-9">
-                                                <input type="radio" id="pc-9">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
                         </div>
                         <div class="row">
                             <div class="col-lg-12">

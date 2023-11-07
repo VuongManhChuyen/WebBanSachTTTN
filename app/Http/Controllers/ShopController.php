@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Author;
 use App\Models\Category;
 use App\Models\Khuyenmai;
 use App\Models\Cart;
@@ -23,6 +23,7 @@ class ShopController extends Controller
     {
         $book = Book::get();
         $category = Category::get();
+        $author = Author::get();
         $book->load('promotion');
         
                 //tính tổng tiền của giỏ hàng
@@ -39,16 +40,16 @@ class ShopController extends Controller
                 //     return view('font.shop.index',['sanpham' => $sanpham,'category' => $category , 'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
                 // }
                 // else{
-                    return view('font.shop.index',['book' => $book,'category' => $category]);
+                    return view('font.shop.index',['book' => $book,'category' => $category,'author' => $author]);
                 // }
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function searchCategory()
     {
-        //
+       return view('font.shop.index');
     }
 
     /**
@@ -65,30 +66,29 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $sanpham =  $this->product->with('khuyenmai')->find($id);
-        $products = Book::where('category_id', $sanpham->category_id)
-        ->where('id', '<>', $sanpham->id)
+        $book =  $this->book->with('promotion')->find($id);
+        $books = Book::where('category_id', $book->category_id)
+        ->where('id', '<>', $book->id)
         ->take(4)
         ->get();
-        $products->load('khuyenmai');
+        $books->load('promotion');
         
-        if(Auth::user()){
-            $user_id = auth()->user()->id;
-            $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
-            $totalPrice = 0;
-            $totalQuantity = 0;
+        // if(Auth::user()){
+        //     $user_id = auth()->user()->id;
+        //     $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
+        //     $totalPrice = 0;
+        //     $totalQuantity = 0;
     
-            foreach ($cartItems as $cartItem) {
-                $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
-                $totalQuantity += $cartItem->product_quantity ;
-            }
-            return view('font.shop.detail',compact('sanpham'),['products'=>$products,'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
-        }
-        else{
-            return view('font.shop.detail',compact('sanpham'),['products'=>$products]);
-        }
+        //     foreach ($cartItems as $cartItem) {
+        //         $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
+        //         $totalQuantity += $cartItem->product_quantity ;
+        //     }
+        //     return view('font.shop.detail',compact('sanpham'),['products'=>$products,'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
+        // }
+        // else{
+            return view('font.shop.detail',compact('book'),['books'=>$books]);
+        // }
     }
-
     /**
      * Show the form for editing the specified resource.
      */

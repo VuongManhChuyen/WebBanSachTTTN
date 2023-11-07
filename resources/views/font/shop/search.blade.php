@@ -37,14 +37,34 @@
                                 <div class="accordion" id="accordionExample">
                                     <div class="card">
                                         <div class="card-heading">
-                                            <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                            <a>THể LOẠI</a>
                                         </div>
-                                        <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                        <div>
                                             <div class="card-body">
                                                 <div class="shop__sidebar__categories">
                                                     <ul class="nice-scroll">
                                                         @foreach ($category as $category)
                                                         <li><a href="#">{{$category->name_category}}</a></li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shop__sidebar__accordion">
+                                <div class="accordion" id="accordionExample">
+                                    <div class="card">
+                                        <div class="card-heading">
+                                            <a>TÁC GIẢ</a>
+                                        </div>
+                                        <div>
+                                            <div class="card-body">
+                                                <div class="shop__sidebar__categories">
+                                                    <ul class="nice-scroll">
+                                                        @foreach ($author as $author)
+                                                        <li><a href="#">{{$author->name_author}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -76,38 +96,38 @@
                             </div>
                         </div>
                         <div class="row">
-                            @foreach ($search as $sanpham)
+                            @foreach ($search as $book)
                                 
                            
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <form action="{{route('cart.store',$sanpham->id)}}" method="POST">
+                                    <form action="{{route('cart.store',$book->id)}}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{$sanpham->id}}">
-                                        <input class="hidden" type="number" name="product_price" value="{{$sanpham->khuyenmai->price_khuyenmai}}">
-                                        <input class="hidden" type="number" name="product_quantity" value="1">
+                                        <input type="hidden" name="book_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="price" value="{{$book->promotion->price_promotion}}">
+                                        <input class="hidden" type="number" name="quantity" value="1">
                                         @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
                                         @endif
-                                    <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$sanpham->img)}}">
+                                    <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$book->img)}}">
                                         <ul class="product__hover">
                                             <li><a href="#"><img src="font/img/icon/heart.png" alt=""></a></li>
                                             <li><a href="#"><img src="font/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                             </li>
-                                            <li><a href="{{ route('shop.show', $sanpham->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
+                                            <li><a href="{{ route('shop.show', $book->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
-                                        <h6>{{$sanpham->name_product}}</h6>
+                                        <h6>{{$book->name_book}}</h6>
                                         {{-- <a href="{{route('cart.store',$sanpham->id)}}" class="add-cart">+ Add To Cart</a> --}}
 
 
-                                        @if (Auth::user() && Auth::user()->role_id==1)
+                                        {{-- @if (Auth::user() && Auth::user()->role_id==1)
                                             <button class="add-cart">+ Add To Cart</button>
                                         @endif
                                         @if (!Auth::user())
                                             <button class="add-cart">+ Add To Cart</button>
-                                        @endif
+                                        @endif --}}
                                         
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
@@ -116,53 +136,15 @@
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>
                                         </div>
-                                        <h5><strike>${{$sanpham->price}}</strike>  $ {{$sanpham->khuyenmai->price_khuyenmai}}</h5>
+                                        <h5><strike>${{$book->price}}</strike>  $ {{$book->promotion->price_promotion}}</h5>
                                         <div class="">
-                                            <a href="{{route('shop.show',$sanpham->id)}}">Chi tiết</a>
+                                            <a href="{{route('shop.show',$book->id)}}">Chi tiết</a>
                                         </div>
                                     </div>
                                 </form>
                                 </div>
                             </div>
                             @endforeach
-
-                            {{-- <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item sale">
-                                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                                        <span class="label">Sale</span>
-                                        <ul class="product__hover">
-                                            <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
-                                            <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a>
-                                            </li>
-                                            <li><a href="#"><img src="img/icon/search.png" alt=""></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="product__item__text">
-                                        <h6>Multi-pocket Chest Bag</h6>
-                                        <a href="#" class="add-cart">+ Add To Cart</a>
-                                        <div class="rating">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <h5>$43.48</h5>
-                                        <div class="product__color__select">
-                                            <label for="pc-7">
-                                                <input type="radio" id="pc-7">
-                                            </label>
-                                            <label class="active black" for="pc-8">
-                                                <input type="radio" id="pc-8">
-                                            </label>
-                                            <label class="grey" for="pc-9">
-                                                <input type="radio" id="pc-9">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-
                         </div>
                         <div class="row">
                             <div class="col-lg-12">

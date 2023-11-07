@@ -10,10 +10,13 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ShowCateController;
+use App\Http\Controllers\ShowAuthorController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\AuthorController;
+
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -54,12 +57,13 @@ Route::get('/login',[HomeController::class,'checkUserType']);
     Route::resource('cart', CartController::class);
     Route::resource('checkout', CheckoutController::class);
     Route::resource('hoadon', OrderController::class);
+   
 // });
 
 Route::resource('shop', ShopController::class);
-Route::resource('taikhoan', TaiKhoanController::class);
+Route::resource('showCate', ShowCateController::class);
+Route::resource('showAuthor', ShowAuthorController::class);
 Route::get('/search', [SearchController::class, 'search']);
-
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

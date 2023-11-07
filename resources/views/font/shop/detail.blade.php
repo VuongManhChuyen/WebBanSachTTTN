@@ -166,7 +166,7 @@
                         <div class="product__details__breadcrumb">
                             <a href="/">Home</a>
                             <a href="/shop">Shop</a>
-                            <span>Product Details</span>
+                            <span>Book Details</span>
                         </div>
                     </div>
                 </div>
@@ -178,7 +178,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__pic__item">
-                                    <img src="{{asset('/storage/images/'.$sanpham->img)}}" alt="">
+                                    <img src="{{asset('/storage/images/'.$book->img)}}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-8">
                         <div class="product__details__text">
-                            <h4>{{$sanpham->name_product}}</h4>
+                            <h4>{{$book->name_book}}</h4>
                             <div class="rating">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -199,14 +199,14 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <h3>${{$sanpham->khuyenmai->price_khuyenmai}} <span>{{$sanpham->price}}</span></h3>
-                            <p>{{$sanpham->description}}</p>
+                            <h3>${{$book->promotion->price_promotion}} <span>{{$book->price}}</span></h3>
+                            <p>{{$book->description}}</p>
                             <div class="product__details__cart__option">
-                                <form action="{{route('cart.store',$sanpham->id)}}" method="POST">
+                                <form action="{{route('cart.store',$book->id)}}" method="POST">
                                     @csrf
                                     @method('POST')
-                                    <input type="hidden" name="product_id" value="{{$sanpham->id}}">
-                                        <input class="hidden" type="number" name="product_price" value="{{$sanpham->khuyenmai->price_khuyenmai}}">
+                                    <input type="hidden" name="product_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="product_price" value="{{$book->promotion->price_promotion}}">
                                         @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
                                         @endif
@@ -217,12 +217,12 @@
                                     </div>
                                 </div>
                                 {{-- <a href="#" class="primary-btn">add to cart</a> --}}
-                                @if (Auth::user() && Auth::user()->role_id==1)
+                                {{-- @if (Auth::user() && Auth::user()->role_id==1)
                                             <button class="add-cart primary-btn">+ Add To Cart</button>
                                 @endif
                                 @if (!Auth::user())
                                             <button class="add-cart primary-btn">+ Add To Cart</button>
-                                @endif
+                                @endif --}}
                             </form>
                             </div>
                         </div>
@@ -244,7 +244,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($products as $sp)
+                @foreach ($books as $sp)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
                         <a href="{{route('shop.show',$sp->id)}}">
@@ -259,7 +259,7 @@
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <h5><strike>${{$sp->price}}</strike>  $ {{$sp->khuyenmai->price_khuyenmai}}</h5>
+                            <h5><strike>${{$sp->price}}</strike>  $ {{$sp->promotion->price_promotion}}</h5>
                         </div>
                     </div>
                 </div>
