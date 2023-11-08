@@ -9,19 +9,9 @@
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" 
+                <input type="text" name="name_role" class="form-control" 
                    >
-                   @error('name')
-                   <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                <div class="form-text">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Dispaly Name</label>
-                <input type="text" name="display_name" class="form-control" 
-                   >
-                   @error('display_name')
+                   @error('name_role')
                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                     @enderror
                 <div class="form-text">

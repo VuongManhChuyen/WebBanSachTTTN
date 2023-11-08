@@ -7,22 +7,22 @@ use App\Models\User;
 use App\Models\Role;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Auth;
-class TaiKhoanController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(Auth::user()->role_id==2){
+        // if(Auth::user()->role_id==2){
             $taikhoan = User::get();
             $role=Role::get();
             $taikhoan->load('role');
-            return view('admin.taikhoan.list',['taikhoan'=>$taikhoan,'role'=>$role]);
-        }
-        else{
-            return redirect()->route('login');
-        }
+            return view('admin.user.list',['taikhoan'=>$taikhoan,'role'=>$role]);
+        // }
+        // else{
+        //     return redirect()->route('login');
+        // }
         
     }
 
@@ -53,40 +53,40 @@ class TaiKhoanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $taikhoan)
+    public function edit(User $user)
     {
         $role = Role::get();
-        $taikhoan->load('role');
-        return view('admin.taikhoan.edit', compact('taikhoan'),['role' => $role]);
+        $user->load('role');
+        return view('admin.user.edit', compact('user'),['role' => $role]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $taikhoan)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $name = $request->input('name');
         $email = $request->input('email');
-        $password = $request->input('password');
+        // $password = $request->input('password');
         $role_id = $request->input('role_id');
        
-        $taikhoan->fill([
+        $user->fill([
             'name' => $name,
             'email' => $email,
-            'password' => $password,
+            // 'password' => $password,
             'role_id' => $role_id,
         ])->save();
-        return redirect()->route('taikhoan.index')
+        return redirect()->route('user.index')
             ->with('success', 'Tai Khoan update successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $taikhoan)
+    public function destroy(User $user)
     {
-        $taikhoan->delete();
-        return redirect()->route('taikhoan.index')
+        $user->delete();
+        return redirect()->route('user.index')
         ->with('success', 'Delete Tai Khoan successfully');
     }
 }

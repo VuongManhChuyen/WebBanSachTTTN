@@ -38,14 +38,14 @@
                         <td>{{$taikhoan->name}}</td>
                         <td>{{$taikhoan->email}}</td>
                         {{-- <td>{{$taikhoan->password}}</td> --}}
-                        <td>{{$taikhoan->role->display_name}}</td>
+                        <td>{{$taikhoan->role->name_role}}</td>
                         <td>
                             
                             
-                                <form action="{{ route('taikhoan.destroy',$taikhoan->id) }}" method="POST">
+                                <form action="{{ route('user.destroy',$taikhoan->id) }}" method="POST">
                                     <a
                                 class="btn btn-sm btn-primary"
-                                href="{{ route('taikhoan.edit',$taikhoan->id) }}"
+                                href="{{ route('user.edit',$taikhoan->id) }}"
                                 >Update</a
                             >
                         

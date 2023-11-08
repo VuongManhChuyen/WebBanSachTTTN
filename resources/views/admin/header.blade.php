@@ -82,7 +82,7 @@
                         <a href="/role" class="dropdown-item"
                             >PHÂN QUYỀN</a
                         >
-                        <a href="/taikhoan" class="dropdown-item"
+                        <a href="/user" class="dropdown-item"
                             >TÀI KHOẢN</a
                         >
                     </div>

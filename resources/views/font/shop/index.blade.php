@@ -13,7 +13,7 @@
                     </div>
                 @endif
                 @if (Auth::user() && Auth::user()->role_id==1)
-                                            <button class="add-cart">+ Add To Cart</button>
+                    <button class="add-cart">+ Add To Cart</button>
                 @endif
                   </div>
                 </div>

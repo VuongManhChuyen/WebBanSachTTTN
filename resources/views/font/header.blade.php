@@ -23,11 +23,14 @@
                 
                 <span>{{Auth::user()->name}} <i class="arrow_carrot-down"></i></span>
                 <ul>
-                  <li><a href="logout">Logout</a></li>
+                  <li><a href="{{route('logout')}}">Logout</a></li>
                   @if (Auth::user()->role_id==2)
                   <li><a href="/adminn">ADMIN</a></li>
                   @endif
-                  <li><a href="#">Profile</a></li>
+                  <?php 
+                  $id = Auth::user()->id
+                  ?>
+                  <li><a href="{{route('profile.index')}}">Profile</a></li>
                 </ul>
                 @endif
                 
@@ -41,7 +44,7 @@
       <div class="row">
         <div class="col-lg-3 col-md-3">
           <div class="header__logo">
-            <a href="/"><img src="font/img/logo.png" alt="" style="height: 100px; width: 100px" /></a>
+            <a href="/"><img src="{{asset('font/img/logo.png')}}" alt="" style="height: 100px; width: 100px" /></a>
           </div>
         </div>
         <div class="col-lg-6 col-md-6">

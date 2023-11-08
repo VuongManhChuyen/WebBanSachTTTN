@@ -10,7 +10,7 @@ class Role extends Model
     public $table = 'role';
     use HasFactory;
     protected  $fillable = [
-        'name',
+        'name_role',
     ];
     public function users() 
     {

@@ -14,13 +14,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id==2){
+        // if(Auth::user()->role_id==2){
             $role = Role::get();
             return view('admin.role.list',['role' => $role]);
-        }
-        else{
-            return redirect()->route('login');
-        }
+        // }
+        // else{
+        //     return redirect()->route('login');
+        // }
        
     }
 
@@ -38,12 +38,10 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         
-        $name = $request->input('name');
-        $display_name = $request->input('display_name');
+        $name_role = $request->input('name_role');
        
         $data = [
-            'name' => $name,
-            'display_name' => $display_name,
+            'name_role' => $name_role,
         ];
         Role::create($data);
         
@@ -72,12 +70,10 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        $name = $request->input('name');
-        $display_name = $request->input('display_name');
+        $name = $request->input('name_role');
        
         $role->fill([
-            'name' => $name,
-            'display_name' => $display_name,
+            'name_role' => $name,
         ])->save();
         return redirect()->route('role.index')
             ->with('success', 'Role update successfully');

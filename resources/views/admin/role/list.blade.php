@@ -25,15 +25,13 @@
                     <tr class="text-white">
                         <th scope="col">ID</th>
                         <th scope="col">Tên</th>
-                        <th scope="col">Display Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($role as $key => $role)
                     <tr>
                         <td>{{$key+1}}</td>
-                        <td>{{$role->name}}</td>
-                        <td>{{$role->display_name}}</td>
+                        <td>{{$role->name_role}}</td>
                         <td>
                             
                             

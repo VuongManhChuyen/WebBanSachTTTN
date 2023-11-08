@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CouponsController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
@@ -14,7 +14,6 @@ use App\Http\Controllers\ShowCateController;
 use App\Http\Controllers\ShowAuthorController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\AuthorController;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -27,6 +26,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,12 +48,13 @@ Route::get('/login',[HomeController::class,'checkUserType']);
     Route::resource('book', BookController::class);
     Route::resource('promotion', PromotionController::class);
     Route::resource('author', AuthorController::class);
-    Route::resource('coupon', CouponsController::class);
     Route::resource('role', RoleController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('cart', CartController::class);
     Route::resource('checkout', CheckoutController::class);
     Route::resource('hoadon', OrderController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('profile', ProfileController::class);
    
 // });
 
