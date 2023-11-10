@@ -25,20 +25,20 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <h6 class="checkout__title">CHI TIẾT THANH TOÁN</h6>
-                        <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                             <div class="checkout__input">
                                 <div class="checkout__input">
                                     <p>Họ tên<span>*</span></p>
                                     <input type="text" name="name_kh">
-                                    @error('name_kh')
+                                    @error('name')
                                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                      @enderror
                                 </div>
                             </div>
                         <div class="checkout__input">
                             <p>Địa chỉ<span>*</span></p>
-                            <input type="text" placeholder="Street Address" class="checkout__input__add" name="diachi">
-                            @error('diachi')
+                            <input type="text" placeholder="Street Address" class="checkout__input__add" name="address">
+                            @error('address')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                              @enderror
                         </div>
@@ -73,10 +73,12 @@
                             <h4 class="order__title">ĐƠN ĐẶT HÀNG CỦA BẠN</h4>
                             <div class="checkout__order__products">Sản phẩm <span>Tổng cộng</span></div>
                             <ul class="checkout__total__products">
-                                @foreach ($cart as $cart)
-                                    
-                               
-                                <li>{{$key++}}. {{$cart->products->name_product}} <span>$ {{$cart->product_quantity*$cart->product_price}}</span></li>
+                              
+                                <input type="hidden" name="cart_id" value="{{$cart_id}}">
+                                @foreach ($cart->cartuser as $cart)
+                                
+                                    <input type="hidden" name="status_id" value="1">
+                                <li>{{$key++}}. {{$cart->book->name_book}} <span>$ {{$cart->book_quantity*$cart->book_price}}</span></li>
                                 @endforeach
                             </ul>
                             <ul class="checkout__total__all">

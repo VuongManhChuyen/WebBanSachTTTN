@@ -4,17 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
-use App\Models\Product;
+use App\Models\Book;
+use App\Models\Cartuser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    protected $cart;
+    protected $book;
+    protected $cartuser;
+
+    public function __construct(Book $book, Cart $cart, Cartuser $cartuser, )
+    {
+        $this->book = $book;
+        $this->cart = $cart;
+        $this->cartuser = $cartuser;
+    }
+
     public function index()
-    {   
-        $user = Auth::user();
-        $cart = $user->cart()->with('products')->get();
+    {    $user = Auth::user();
+        $userId = Auth::user()->id;
+        $cart = $this->cart->firtOrCreateBy($userId)->load('book','cartuser');
+        $cartuser = Cartuser::find($userId);
         $check = Cart::get();
         $check_id = '';
         foreach ($check as $check){
@@ -23,56 +35,59 @@ class CartController extends Controller
 
         //tính tổng tiền của giỏ hàng
         $user_id = auth()->user()->id;
-        $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
+        $cartItems = Cart::with('cartuser.book')->where('user_id', $user_id)->first();
+        // dd( $cartItems );
         $totalPrice = 0;
         $totalQuantity = 0;
 
-        foreach ($cartItems as $cartItem) {
-            $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
-            $totalQuantity += $cartItem->product_quantity ;
+        foreach ($cartItems->cartuser as $cartProduct) {
+            $totalPrice += $cartProduct->book_quantity * $cartProduct->book_price;
+            $totalQuantity += $cartProduct->book_quantity ;
         }
-
-        return view('font.cart.index', compact('cart'),['check_id' => $check_id,'totalPrice' => $totalPrice , 'totalQuantity' => $totalQuantity]);
+        return view('font.cart.index',compact('cart'),['check_id' => $check_id,'totalPrice' => $totalPrice , 'totalQuantity' => $totalQuantity]);
           
     }
-    public function getTotalQuantity()
-    {
-        $user = Auth::user();
-        $cart = $user->cart()->get();
+    // public function getTotalQuantity()
+    // {
+    //     $user = Auth::user();
+    //     $cart = $user->cart()->get();
         
-        return view('font.index', compact('cart'));
-    }
+    //     return view('font.index', compact('cart'));
+    // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
+        // Kiểm tra xem sản phẩm có trong giỏ hàng của người dùng không  
         $user_id = auth()->user()->id;
-        $product_id = $request->product_id;
-        if (!Cart::isProductInCart($user_id,$product_id)) {
-            $product_id =$request->product_id;
-            $product_price =$request->product_price;
-            $user_id = $request->user_id;
-            $product_quantity =$request->product_quantity;
+        $book_id =$request->book_id;
+        $cart_id = $request->cart_id;
+        $bookInCart = Cart::where('user_id', $user_id)
+        ->whereHas('cartuser', function ($query) use ($book_id) {
+            $query->where('book_id', $book_id);
+        })
+        ->exists();
+        // dd(!$bookInCart);
+        if (!$bookInCart) {
+            $book_id =$request->book_id;
+            $book_price =$request->book_price;
+            $cart_id = $request->cart_id;
+            $book_quantity =$request->book_quantity;
         $data=[
                     
-                    'product_id' => $product_id,
-                    'product_price' => $product_price,
-                    'product_quantity' => $product_quantity,
-                    'user_id' =>$user_id,
+                    'book_id' => $book_id,
+                    'book_price' => $book_price,
+                    'book_quantity' => $book_quantity,
+                    'cart_id' =>$cart_id,
               
            
         ];
-        Cart::create($data);
+        // dd($data);
+        Cartuser::create($data);
         return redirect()->route('shop.index')
         ->with('success', 'Sản phẩm đã được thêm vào giỏ hàng của bạn');
         }
@@ -86,46 +101,32 @@ class CartController extends Controller
        
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, Cartuser $cart)
     {
-        $product_quantity = $request->input('product_quantity');
-        $product_price = $request->input('product_price');
-        $product_id = $request->input('product_id');
-        $user_id = $request->input('user_id');
+        $book_quantity = $request->input('book_quantity');
+        $book_price = $request->input('product_price');
+        $book_id = $request->input('book_id');
+        $cart_id = $request->input('cart_id');
         $cart->fill([
-            'product_quantity' => $product_quantity,
-            'product_price' => $product_price,
-            'user_id' => $user_id,
-            'product_id' => $product_id,
+            'book_quantity' => $book_quantity,
+            'book_price' => $book_price,
+            'book_id' => $book_id,
+            'cart_id' => $cart_id,
         ])->save();
         // dd($cart);
         return redirect()->route('cart.index')
             ->with('success', 'Cập nhật số lượng sản phẩm thành công');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart)
+    public function destroy(Cartuser $cart)
     {
         $cart->delete();
         return redirect()->route('cart.index')

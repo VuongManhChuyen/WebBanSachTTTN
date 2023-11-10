@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cartuser', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->unsignedInteger('cart_id');
+        Schema::table('cartuser', function (Blueprint $table) {
+            $table->unsignedInteger('book_id');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cartuser');
+        Schema::table('cartuser', function (Blueprint $table) {
+            //
+        });
     }
 };

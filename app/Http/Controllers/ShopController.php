@@ -15,33 +15,26 @@ class ShopController extends Controller
      * Display a listing of the resource.
      */
     protected $book;
-    public function __construct(Book $book)
+    protected $cart;
+    public function __construct(Book $book, Cart $cart)
     {
         $this->book = $book;
+        $this->cart = $cart;
     }
     public function index()
     {
+        $user = Auth::user();
+        $userId = Auth::user()->id;
+        $cart = $this->cart->firtOrCreateBy($userId)->load('book','cartuser');
+        
+        $cart = Cart::where('user_id',Auth()->user()->id)->first();
+        $cart_id = $cart->id;
         $book = Book::get();
         $category = Category::get();
         $author = Author::get();
         $book->load('promotion');
         
-                //tính tổng tiền của giỏ hàng
-                // if(Auth::user()){
-                //     $user_id = auth()->user()->id;
-                //     $cartItems = Cart::with('products')->where('user_id', $user_id)->get();
-                //     $totalPrice = 0;
-                //     $totalQuantity = 0;
-            
-                //     foreach ($cartItems as $cartItem) {
-                //         $totalPrice += $cartItem->product_quantity * $cartItem->product_price;
-                //         $totalQuantity += $cartItem->product_quantity ;
-                //     }
-                //     return view('font.shop.index',['sanpham' => $sanpham,'category' => $category , 'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
-                // }
-                // else{
-                    return view('font.shop.index',['book' => $book,'category' => $category,'author' => $author]);
-                // }
+        return view('font.shop.index',compact('cart_id'),['book' => $book,'category' => $category,'author' => $author,'cart_id'=>$cart_id]);
     }
 
     /**

@@ -1,22 +1,22 @@
 @extends('font.layout')
 @section('content')
       
-    @if (Auth::user()->id != $check_id && Auth::user()->role_id != 2)
+    {{-- @if (Auth::user()->id != $check_id && Auth::user()->role_id != 2)
     <div class="alert alert-primary text-left" role="alert">
       <div class="text-left">
       Giỏ hàng của bạn còn trống
-    </div>
+    </div> --}}
       <div class="continue__btn text-center">
         <a href="/shop">Continue Shopping</a>
       </div>
     </div>
-    @else
-    @if (Auth::user()->role_id == 2)
+    {{-- @else --}}
+    {{-- @if (Auth::user()->role_id == 2)
 
     <div class="alert alert-primary text-center" role="alert">
       Bạn đang là ADMIN
     </div>
-   @else
+   @else --}}
      
 
         <!-- Breadcrumb Section Begin -->
@@ -55,33 +55,33 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($cart as $cart)
+                        @foreach ($cart->book as $cart)
                             {{-- @php $total += $cart['product_price'] * $cart['product_quantity'] @endphp --}}
                             
                         <tr>
                           <td class="product__cart__item" >
                             <div class="product__cart__item__pic">
-                              <img src="{{asset('/storage/images/'.$cart->products->img)}}" alt=""  width="100" height="100"/>
+                              <img src="{{asset('/storage/images/'.$cart->book->img)}}" alt=""  width="100" height="100"/>
                             </div>
                             <div class="product__cart__item__text">
-                              <h6>{{$cart->products->name_product}}</h6>
-                              <h5>$ {{$cart->product_price}}</h5>
+                              <h6>{{$cart->name_book}}</h6>
+                              <h5>$ {{$cart->book_price}}</h5>
                             </div>
                           </td>
                           <form action="{{ route('cart.update',$cart->id)}}"method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="product_price" value="{{$cart->product_price}}">
-                            <input type="hidden" name="product_id" value="{{$cart->product_id}}">
-                            <input type="hidden" name="user_id" value="{{$cart->user_id}}">
+                            <input type="hidden" name="product_price" value="{{$cart->book_price}}">
+                            <input type="hidden" name="book_id" value="{{$cart->book_id}}">
+                            <input type="hidden" name="cart_id" value="{{$cart->cart_id}}">
                           <td class="quantity__item">
                             <div class="quantity">
                               <div class="pro-qty-2">
-                                <input type="number" name="product_quantity" value="{{$cart->product_quantity}}" />
+                                <input type="number" min="1" name="book_quantity" value="{{$cart->book_quantity}}" />
                               </div>
                             </div>
                           </td>
-                          <td class="cart__price">$ {{$cart->product_price*$cart->product_quantity}}</td>
+                          <td class="cart__price">$ {{$cart->book_price*$cart->book_quantity}}</td>
                           <td><button type="submit"><i class="fa fa-spinner"></i> Update Quantity</button></td>
                         </form>
                           <td class="cart__close"><form action="{{route('cart.destroy',$cart->id)}}"method="POST">
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6">
                       <div class="continue__btn update__btn">
-                        <a href="{{ route('cart.update',$cart->user_id)}}"><i class="fa fa-spinner"></i> Update cart</a>
+                        {{-- <a href="{{ route('cart.update',$cart->cart_id)}}"><i class="fa fa-spinner"></i> Update cart</a> --}}
                       </form>
                       </div>
                     </div>
@@ -130,12 +130,12 @@
               </div>
             </div>
           </section>
-          @endif
+          {{-- @endif --}}
         
             
         
             
         
-    @endif
+    {{-- @endif --}}
    
 @endsection

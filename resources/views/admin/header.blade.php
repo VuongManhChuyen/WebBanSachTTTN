@@ -68,9 +68,12 @@
                 <a href="/banner" class="nav-item nav-link"
                     ><i class="fa fa-keyboard me-2"></i>Banner Marketing</a
                 >
-                <a href="/hoadon" class="nav-item nav-link"
+                <a href="/order" class="nav-item nav-link"
                     ><i class="fa fa-table me-2"></i>Hóa Đơn</a
                 >
+                <a href="/status" class="nav-item nav-link"
+                ><i class="fa fa-table me-2"></i>Trạng thái</a
+            >
                 <div class="nav-item dropdown">
                     <a
                         href="#"

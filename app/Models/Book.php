@@ -30,4 +30,13 @@ class Book extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+    public function cartuser() 
+    {
+        return $this->hasMany(Cartuser::class);
+    }
+    public function ok(){
+        $cart = Cart::where('user_id',Auth()->user()->id)->first();
+        $cart_id = $cart->id;
+        return $cart_id ;
+    }
 }

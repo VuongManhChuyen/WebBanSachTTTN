@@ -94,18 +94,19 @@
                         </div>
                         <div class="row">
                             @foreach ($book as $book)
-                                
+                            
                            
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <form action="{{route('cart.store',$book->id)}}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="product_id" value="{{$book->id}}">
-                                        <input class="hidden" type="number" name="price" value="{{$book->promotion->price_promotion}}">
-                                        <input class="hidden" type="number" name="product_quantity" value="1">
-                                        @if (Auth::user())
+                                        <input type="hidden" name="cart_id" value="{{$cart_id}}">
+                                        <input type="hidden" name="book_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
+                                        <input class="hidden" type="number" name="book_quantity" value="1">
+                                        {{-- @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
-                                        @endif
+                                        @endif --}}
                                     <div class="product__item__pic set-bg" data-setbg="{{asset('/storage/images/'.$book->img)}}">
                                         <ul class="product__hover">
                                             <li><a href="#"><img src="font/img/icon/heart.png" alt=""></a></li>

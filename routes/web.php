@@ -27,6 +27,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -55,6 +56,8 @@ Route::get('/login',[HomeController::class,'checkUserType']);
     Route::resource('hoadon', OrderController::class);
     Route::resource('user', UserController::class);
     Route::resource('profile', ProfileController::class);
+    Route::resource('status', StatusController::class);
+    Route::resource('order', OrderController::class);
    
 // });
 

@@ -205,15 +205,15 @@
                                 <form action="{{route('cart.store',$book->id)}}" method="POST">
                                     @csrf
                                     @method('POST')
-                                    <input type="hidden" name="product_id" value="{{$book->id}}">
-                                        <input class="hidden" type="number" name="product_price" value="{{$book->promotion->price_promotion}}">
+                                    <input type="hidden" name="book_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
                                         @if (Auth::user())
                                         <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
                                         @endif
                                 <div class="quantity">
                                     Số lượng:
                                     <div class="pro-qty">
-                                       <input type="number" name="product_quantity" min="1" placeholder="1" required>
+                                       <input type="number" name="book_quantity" min="1" placeholder="1" required>
                                     </div>
                                 </div>
                                 {{-- <a href="#" class="primary-btn">add to cart</a> --}}
