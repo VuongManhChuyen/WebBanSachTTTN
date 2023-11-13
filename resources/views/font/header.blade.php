@@ -31,6 +31,7 @@
                   $id = Auth::user()->id
                   ?>
                   <li><a href="{{route('profile.index')}}">Profile</a></li>
+                  <li><a href="{{route('ordercl.index')}}">Order</a></li>
                 </ul>
                 @endif
                 

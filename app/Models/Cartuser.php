@@ -14,15 +14,13 @@ class Cartuser extends Model
         'book_id',
         'book_quantity',
         'book_price',
+        'user_id',
     ];
     public static function isBookInCart($cart_id,$book_id)
     {
         return self::where('cart_id', $cart_id)
                    ->where('book_id', $book_id)
                    ->exists();
-    // return CartProduct::whereCartId($cartId)
-    //         ->whereProductId($productId)
-    //         ->whereProductSize($productSize)->first();
     }
     public function getBy(  $userId)
     {
@@ -37,16 +35,20 @@ class Cartuser extends Model
     {
         return $this->belongsTo(Book::class);
     }
+    public function user() 
+    {
+        return $this->belongsTo(User::class);
+    }
     public function cart() 
     {
         return $this->belongsTo(Cart::class);
     }
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
     public static function isProductInCart($book_id, $cart_id,$userId)
     {
-        // return self::where('book_id', $book_id)
-        //            ->where('cart_id', $cart_id)
-        //            ->where('user_id',$userId)
-        //            ->exists();
         return DB::table('cart')
         ->join('cartuser', 'cart.id','=','cartuser.cart_id')
         ->where('cartuser.cart_id',$cart_id)

@@ -27,30 +27,32 @@
                         <th scope="col">Số Điện Thoại</th>
                         <th scope="col">Địa chỉ</th>
                         <th scope="col">Ghi chú</th>
-                        {{-- <th scope="col">Số lượng sản phẩm</th> --}}
-                        
+                        <th>Tên sản phẩm</th>
+                        <th scope="col">Số lượng sản phẩm</th>
+                        <th>Tổng tiền</th>
+                        <th scope="col">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($order as $key => $order)
+                    @foreach ($order  as  $key => $order)
+                    
                     <tr>
                         <td>{{$key+1}}</td>
                         <td>{{$order->name_kh}}</td>
                         <td>{{$order->phone}}</td>
-                        <td>${{$order->address}}</td>
+                        <td>{{$order->address}}</td>
                         <td>{{$order->note}}</td>
-                        {{-- <td>{{$order->cart->product_quantity}}</td> --}}
-                      
-                        {{-- <td>{{$product->category->name_category}}</td>
-                        <td>${{$product->khuyenmai->price_khuyenmai}}</td>
-                        
+                        <td>{{$order->name_book}}</td>
+                        <td>{{$order->book_quantity}}</td>
+                        <td>{{$order->book_price}}</td>
+                        <td>{{$order->name_status}}</td>
                         <td>
                             
                             
-                                <form action="{{ route('product.destroy',$product->id) }}" method="POST">
+                                <form action="{{ route('order.destroy',$order->order_id) }}" method="POST">
                                     <a
                                 class="btn btn-sm btn-primary"
-                                href="{{ route('product.edit',$product->id) }}"
+                                href="{{ route('order.edit',$order->order_id) }}"
                                 >Update</a
                             >
                                 @csrf
@@ -58,7 +60,7 @@
                                     <button class="btn btn-sm btn-primary">Delete</button>
                                 </form>
                             
-                        </td> --}}
+                        </td>
                     </tr>   
                     @endforeach               
                 </tbody>

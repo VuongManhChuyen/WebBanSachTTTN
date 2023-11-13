@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
@@ -22,8 +23,10 @@ class CartController extends Controller
         $this->cartuser = $cartuser;
     }
 
-    public function index()
-    {    $user = Auth::user();
+    public function index()   
+    {    
+        if(Auth::user()){
+        $user = Auth::user();
         $userId = Auth::user()->id;
         $cart = $this->cart->firtOrCreateBy($userId)->load('book','cartuser');
         $cartuser = Cartuser::find($userId);
@@ -36,7 +39,6 @@ class CartController extends Controller
         //tính tổng tiền của giỏ hàng
         $user_id = auth()->user()->id;
         $cartItems = Cart::with('cartuser.book')->where('user_id', $user_id)->first();
-        // dd( $cartItems );
         $totalPrice = 0;
         $totalQuantity = 0;
 
@@ -45,15 +47,12 @@ class CartController extends Controller
             $totalQuantity += $cartProduct->book_quantity ;
         }
         return view('font.cart.index',compact('cart'),['check_id' => $check_id,'totalPrice' => $totalPrice , 'totalQuantity' => $totalQuantity]);
-          
     }
-    // public function getTotalQuantity()
-    // {
-    //     $user = Auth::user();
-    //     $cart = $user->cart()->get();
-        
-    //     return view('font.index', compact('cart'));
-    // }
+    else{
+        return redirect()->route('shop.index')
+        ->with('success', 'Bạn chưa đăng nhập');
+    }
+    }
 
     public function create()
     {
@@ -62,6 +61,7 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
+        if(Auth::user()){
         // Kiểm tra xem sản phẩm có trong giỏ hàng của người dùng không  
         $user_id = auth()->user()->id;
         $book_id =$request->book_id;
@@ -74,6 +74,7 @@ class CartController extends Controller
         // dd(!$bookInCart);
         if (!$bookInCart) {
             $book_id =$request->book_id;
+            $user_id =$request->user_id;
             $book_price =$request->book_price;
             $cart_id = $request->cart_id;
             $book_quantity =$request->book_quantity;
@@ -83,10 +84,10 @@ class CartController extends Controller
                     'book_price' => $book_price,
                     'book_quantity' => $book_quantity,
                     'cart_id' =>$cart_id,
+                    'user_id' =>$user_id,
               
            
         ];
-        // dd($data);
         Cartuser::create($data);
         return redirect()->route('shop.index')
         ->with('success', 'Sản phẩm đã được thêm vào giỏ hàng của bạn');
@@ -95,12 +96,12 @@ class CartController extends Controller
             return redirect()->route('shop.index')
         ->with('success', 'Sản phẩm đã có trong giỏ hàng');
         }
-        
-        // var_dump($cart);
-        // die();
-       
     }
-
+    else{
+        return redirect()->route('shop.index')
+        ->with('success', 'Bạn chưa đăng nhập');
+    }
+}
     public function show(string $id)
     {
         //
@@ -121,7 +122,6 @@ class CartController extends Controller
             'book_id' => $book_id,
             'cart_id' => $cart_id,
         ])->save();
-        // dd($cart);
         return redirect()->route('cart.index')
             ->with('success', 'Cập nhật số lượng sản phẩm thành công');
     }

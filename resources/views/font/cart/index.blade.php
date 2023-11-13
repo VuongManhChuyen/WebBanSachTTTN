@@ -37,7 +37,7 @@
             </div>
           </section>
           <!-- Breadcrumb Section End -->
-      
+          @if(Auth::user())
           <!-- Shopping Cart Section Begin -->
           <section class="shopping-cart spad">
             <div class="container">
@@ -130,12 +130,8 @@
               </div>
             </div>
           </section>
-          {{-- @endif --}}
-        
-            
-        
-            
-        
+          @endif
+
     {{-- @endif --}}
    
 @endsection

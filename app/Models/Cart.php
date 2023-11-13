@@ -10,7 +10,7 @@ class Cart extends Model
     public $table = 'cart';
     use HasFactory;
     protected $fillable = [
-        'user_id'
+        'user_id',
     ];
     public function cartuser() //tạo relationship với model Author
     {

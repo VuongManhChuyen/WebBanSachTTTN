@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
@@ -14,27 +15,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        // if(Auth::user()->role_id==2){
             $role = Role::get();
-            return view('admin.role.list',['role' => $role]);
-        // }
-        // else{
-        //     return redirect()->route('login');
-        // }
-       
+            return view('admin.role.list',['role' => $role]);       
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.role.create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(RoleRequest $request)
     {
         
@@ -48,26 +35,14 @@ class RoleController extends Controller
         return redirect()->route('role.index')
             ->with('success','Role has been created successfully.');
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Role $role)
     {
         return view('admin.role.edit', compact('role'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(RoleRequest $request, Role $role)
     {
         $name = $request->input('name_role');
@@ -78,10 +53,6 @@ class RoleController extends Controller
         return redirect()->route('role.index')
             ->with('success', 'Role update successfully');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Role $role)
     {
         $role->delete();

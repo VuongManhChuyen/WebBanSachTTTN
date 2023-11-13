@@ -1,6 +1,6 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
+use App\Http\Controllers\Controller;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
@@ -58,9 +58,6 @@ class ProfileController extends Controller
         ->with('success', 'Tai Khoan update successfully');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

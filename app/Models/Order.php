@@ -32,4 +32,8 @@ class Order extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+    public function cartuser()
+    {
+        return $this->belongsTo(Cartuser::class);
+    }
 }

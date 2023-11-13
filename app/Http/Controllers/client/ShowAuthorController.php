@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Author;
@@ -8,17 +9,13 @@ use App\Models\Book;
 use App\Models\Category;
 class ShowAuthorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+  
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create()
     {
         //
@@ -32,9 +29,7 @@ class ShowAuthorController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         $showAuthor = Book::where('author_id', $id)
@@ -46,25 +41,17 @@ class ShowAuthorController extends Controller
     return view('font/show/searchAuthor', compact('showAuthor'),['category' => $category,'author' => $author]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

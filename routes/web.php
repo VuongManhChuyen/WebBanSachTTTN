@@ -1,20 +1,24 @@
 <?php
 
-use App\Http\Controllers\BannerController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\PromotionController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PromotionController;
+use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\StatusController;
+use App\Http\Controllers\Client\CheckoutController;
+use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\CartController;
+use App\Http\Controllers\Client\SearchController;
+use App\Http\Controllers\Client\ShowCateController;
+use App\Http\Controllers\Client\ShowAuthorController;
+use App\Http\Controllers\Client\ShopController;
+use App\Http\Controllers\Client\OrderClController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\CartController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\ShowCateController;
-use App\Http\Controllers\ShowAuthorController;
-use App\Http\Controllers\ShopController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\AuthorController;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -25,9 +29,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\StatusController;
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,13 +55,11 @@ Route::get('/login',[HomeController::class,'checkUserType']);
     Route::resource('banner', BannerController::class);
     Route::resource('cart', CartController::class);
     Route::resource('checkout', CheckoutController::class);
-    Route::resource('hoadon', OrderController::class);
     Route::resource('user', UserController::class);
     Route::resource('profile', ProfileController::class);
     Route::resource('status', StatusController::class);
     Route::resource('order', OrderController::class);
-   
-// });
+    Route::resource('ordercl', OrderClController::class);
 
 Route::resource('shop', ShopController::class);
 Route::resource('showCate', ShowCateController::class);

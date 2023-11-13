@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
@@ -9,33 +10,16 @@ use App\Http\Requests\UpdateBannerRequest;
 use Illuminate\Support\Facades\Auth;
 class BannerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        // if(Auth::user()->role_id==2){
             $banner = Banner::get();
             return view('admin.banner.list',['banner' => $banner]);
-        // }
-        // else{
-        //     return redirect()->route('login');
-        // }
-        
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $banner = Banner::get();
         return view('admin.banner.create',['banner' => $banner]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $img = $request->file('img')->getClientOriginalName();
@@ -49,26 +33,10 @@ class BannerController extends Controller
         ->with('success','Banner has been created successfully.');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Banner $banner)
     {
         return view('admin.banner.edit',compact('banner'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Banner $banner)
     {
             if ($request->file('img') !== null) {
@@ -83,10 +51,6 @@ class BannerController extends Controller
             return redirect()->route('banner.index')
             ->with('success', 'Banner update successfully');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Banner $banner)
     {
         $banner->delete();

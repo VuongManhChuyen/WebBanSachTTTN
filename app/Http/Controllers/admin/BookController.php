@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
@@ -13,25 +14,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 class BookController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        // if(Auth::user()->role_id==2){
             $book = Book::all();
             $book->load('category','author','promotion');
             return view('admin.book.list',['book' => $book]);
-        // }
-        // else{
-        //     return redirect()->route('login');
-        // }
+     
         
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $category = Category::get();
@@ -39,10 +30,6 @@ class BookController extends Controller
         $author = Author::get();
         return view('admin.book.create',['category' => $category , 'promotion' => $promotion,'author' => $author]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreBookRequest $request)
     {
         $name_book = $request->input('name_book');
@@ -68,18 +55,11 @@ class BookController extends Controller
         ->with('success','book has been created successfully.');
 
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Book $book)
     {
         $category = Category::get();
@@ -88,10 +68,6 @@ class BookController extends Controller
         $book->load('category','promotion','author');
         return view('admin.book.edit',compact('book'),['category' => $category , 'promotion' => $promotion , 'author' => $author]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(StoreBookRequest $request, Book $book)
     {
         $name_book = $request->input('name_book');
@@ -123,9 +99,6 @@ class BookController extends Controller
             ->with('success', 'book update successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(book $book)
     {
         $book->delete();

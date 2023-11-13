@@ -38,7 +38,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
-    
+    public function cartuser() 
+    {
+        return $this->hasMany(Cartuser::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

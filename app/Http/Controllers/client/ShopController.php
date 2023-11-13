@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Client;
+use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\Author;
@@ -11,9 +11,6 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 class ShopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     protected $book;
     protected $cart;
     public function __construct(Book $book, Cart $cart)
@@ -23,6 +20,7 @@ class ShopController extends Controller
     }
     public function index()
     {
+        if(Auth::user()){
         $user = Auth::user();
         $userId = Auth::user()->id;
         $cart = $this->cart->firtOrCreateBy($userId)->load('book','cartuser');
@@ -36,27 +34,28 @@ class ShopController extends Controller
         
         return view('font.shop.index',compact('cart_id'),['book' => $book,'category' => $category,'author' => $author,'cart_id'=>$cart_id]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    else{
+        $book = Book::get();
+        $category = Category::get();
+        $author = Author::get();
+        $book->load('promotion');
+        return view('font.shop.index',['book' => $book,'category' => $category,'author' => $author]);
+    }
+    
+}
+   
     public function searchCategory()
     {
        return view('font.shop.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request)
     {
  
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $book =  $this->book->with('promotion')->find($id);
@@ -82,25 +81,18 @@ class ShopController extends Controller
             return view('font.shop.detail',compact('book'),['books'=>$books]);
         // }
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -208,7 +208,10 @@
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                         <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
                                         @if (Auth::user())
-                                        <input class="hidden" type="text" name="user_id" value="{{Auth::user()->id}}">
+                                        <input type="hidden" name="cart_id" value="{{$cart_id}}">
+                                        <input type="hidden" name="book_id" value="{{$book->id}}">
+                                        <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
+                                        <input class="hidden" type="number" name="book_quantity" value="1">
                                         @endif
                                 <div class="quantity">
                                     Số lượng:
@@ -217,12 +220,12 @@
                                     </div>
                                 </div>
                                 {{-- <a href="#" class="primary-btn">add to cart</a> --}}
-                                {{-- @if (Auth::user() && Auth::user()->role_id==1)
+                                @if (Auth::user() && Auth::user()->role_id==1)
                                             <button class="add-cart primary-btn">+ Add To Cart</button>
                                 @endif
                                 @if (!Auth::user())
                                             <button class="add-cart primary-btn">+ Add To Cart</button>
-                                @endif --}}
+                                @endif
                             </form>
                             </div>
                         </div>
