@@ -65,7 +65,7 @@
        <div class="col-lg-3 col-md-3">
         <div class="header__nav__option">
           <div class="shop__sidebar__search">
-            <form action="search" method="get">
+            <form action="/search" method="get">
                 <input type="text" name="keyword" placeholder="Search...">
                 <button type="submit"><span class="icon_search"></span></button>
             </form>

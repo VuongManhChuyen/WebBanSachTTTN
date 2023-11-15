@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
-use App\Http\Requests\KhuyenMaiRequest;
 use Illuminate\Http\Request;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Auth;
@@ -28,16 +26,16 @@ class PromotionController extends Controller
         Promotion::create($data);
         
         return redirect()->route('promotion.index')
-            ->with('success','Promotion has been created successfully.');
+            ->with('success','Created successfully.');
     }
     public function show(string $id)
     {
         //
     }
 
-    public function edit(Request $request)
+    public function edit(Promotion $promotion)
     {
-        return view('admin.Khuyenmai.edit', compact('Khuyenmai'));
+        return view('admin.promotion.edit', compact('promotion'));
     }
     public function update(Request $request, Promotion $promotion)
     {
@@ -46,12 +44,12 @@ class PromotionController extends Controller
             'price_promotion' => $price_promotion,
         ])->save();
         return redirect()->route('promotion.index')
-            ->with('success', 'Khuyến Mại update successfully');
+            ->with('success', 'update successfully');
     }
     public function destroy(Promotion $promotion)
     {
         $promotion->delete();
         return redirect()->route('promotion.index')
-        ->with('success', 'Delete Khuyen Mai successfully');
+        ->with('success', 'Delete  successfully');
     }
 }

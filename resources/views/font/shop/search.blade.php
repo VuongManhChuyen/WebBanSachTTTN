@@ -44,7 +44,7 @@
                                                 <div class="shop__sidebar__categories">
                                                     <ul class="nice-scroll">
                                                         @foreach ($category as $category)
-                                                        <li><a href="#">{{$category->name_category}}</a></li>
+                                                        <li><a href="{{ route('showCate.show', $category->id) }}">{{$category->name_category}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>
@@ -64,7 +64,7 @@
                                                 <div class="shop__sidebar__categories">
                                                     <ul class="nice-scroll">
                                                         @foreach ($author as $author)
-                                                        <li><a href="#">{{$author->name_author}}</a></li>
+                                                        <li><a href="showAuthor/{{$author->id}}">{{$author->name_author}}</a></li>
                                                         @endforeach
                                                     </ul>
                                                 </div>

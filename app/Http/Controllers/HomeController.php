@@ -19,7 +19,7 @@ class HomeController extends Controller
     public function index()
 
     {
-        $book = Book::get();
+        $book = Book::take(4)->get();
         $category = Category::get();
         $promotion = Promotion::get();
         $author = Author::get();

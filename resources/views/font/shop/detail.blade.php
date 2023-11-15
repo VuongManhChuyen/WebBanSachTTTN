@@ -177,7 +177,7 @@
                     <div class="col-lg-6 col-md-9">
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="product__details__pic__item">
+                                <div class="d-flex justify-content-center" >
                                     <img src="{{asset('/storage/images/'.$book->img)}}" alt="">
                                 </div>
                             </div>
@@ -199,7 +199,8 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star-o"></i>
                             </div>
-                            <h3>${{$book->promotion->price_promotion}} <span>{{$book->price}}</span></h3>
+                            <h3>${{$book->promotion->price_promotion}} <span>${{$book->price}}</span></h3>
+                            <p>Tác giải: {{$book->author->name_author}}</p>
                             <p>{{$book->description}}</p>
                             <div class="product__details__cart__option">
                                 <form action="{{route('cart.store',$book->id)}}" method="POST">

@@ -5,7 +5,7 @@
 <div class="col-sm-12 col-xl-6">
     <div class="bg-secondary rounded h-100 p-4">
         <h6 class="mb-4">Sửa Giá Khuyến Mại</h6>
-        <form action="{{route('promotion.update',$Khuyenmai->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('promotion.update',$promotion->id)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -18,7 +18,7 @@
                 <div class="form-text">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>

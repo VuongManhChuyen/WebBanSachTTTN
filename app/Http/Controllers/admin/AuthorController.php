@@ -37,7 +37,7 @@ class AuthorController extends Controller
         
     }
 
-    public function edit(Author $category)
+    public function edit(Author $author)
     {
         return view('admin.author.edit', compact('author'));
     }
@@ -46,7 +46,7 @@ class AuthorController extends Controller
     {
         $name_author = $request->input('name_author');
         $author->fill([
-            'name_category' => $name_author,
+            'name_author' => $name_author,
         ])->save();
         return redirect()->route('author.index')
             ->with('success', 'author update successfully');
