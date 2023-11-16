@@ -18,6 +18,7 @@ use App\Http\Controllers\Client\ShowCateController;
 use App\Http\Controllers\Client\ShowAuthorController;
 use App\Http\Controllers\Client\ShopController;
 use App\Http\Controllers\Client\OrderClController;
+use App\Http\Controllers\Client\CommentController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -60,11 +61,11 @@ Route::get('/login',[HomeController::class,'checkUserType']);
     Route::resource('status', StatusController::class);
     Route::resource('order', OrderController::class);
     Route::resource('ordercl', OrderClController::class);
-
-Route::resource('shop', ShopController::class);
-Route::resource('showCate', ShowCateController::class);
-Route::resource('showAuthor', ShowAuthorController::class);
-Route::get('/search', [SearchController::class, 'search']);
+    Route::resource('comment', CommentController::class);
+    Route::resource('shopp', ShopController::class);
+    Route::resource('showCate', ShowCateController::class);
+    Route::resource('showAuthor', ShowAuthorController::class);
+    Route::get('/search', [SearchController::class, 'search']);
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

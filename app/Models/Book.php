@@ -39,4 +39,7 @@ class Book extends Model
         $cart_id = $cart->id;
         return $cart_id ;
     }
+    public function comment(){
+        return $this->hasMany(Comment::class);
+   }
 }

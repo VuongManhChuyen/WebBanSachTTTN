@@ -52,7 +52,7 @@
           <nav class="header__menu mobile-menu">
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/shop">Shop</a></li>
+              <li><a href="{{ route('shopp.index') }}">Shop</a></li>
               <li>
                 <a href="/cart">Shopping Cart</a>
               </li>

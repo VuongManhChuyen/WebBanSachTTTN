@@ -49,7 +49,7 @@ class CartController extends Controller
         return view('font.cart.index',compact('cart'),['check_id' => $check_id,'totalPrice' => $totalPrice , 'totalQuantity' => $totalQuantity]);
     }
     else{
-        return redirect()->route('shop.index')
+        return redirect()->route('shopp.index')
         ->with('success', 'Bạn chưa đăng nhập');
     }
     }
@@ -89,16 +89,16 @@ class CartController extends Controller
            
         ];
         Cartuser::create($data);
-        return redirect()->route('shop.index')
+        return redirect()->route('shopp.index')
         ->with('success', 'Sản phẩm đã được thêm vào giỏ hàng của bạn');
         }
         else {
-            return redirect()->route('shop.index')
+            return redirect()->route('shopp.index')
         ->with('success', 'Sản phẩm đã có trong giỏ hàng');
         }
     }
     else{
-        return redirect()->route('shop.index')
+        return redirect()->route('shopp.index')
         ->with('success', 'Bạn chưa đăng nhập');
     }
 }

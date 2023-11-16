@@ -6,7 +6,6 @@ use App\Models\Book;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Category;
-use App\Models\Khuyenmai;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 class ShopController extends Controller
@@ -21,8 +20,8 @@ class ShopController extends Controller
     public function index()
     {
         if(Auth::user()){
-        $user = Auth::user();
         $userId = Auth::user()->id;
+        $this->cart->getBy($userId);
         $cart = $this->cart->firtOrCreateBy($userId)->load('book','cartuser');
         
         $cart = Cart::where('user_id',Auth()->user()->id)->first();
@@ -58,12 +57,29 @@ class ShopController extends Controller
 
     public function show($id)
     {
-        $book =  $this->book->with('promotion')->find($id);
-        $books = Book::where('category_id', $book->category_id)
-        ->where('id', '<>', $book->id)
-        ->take(4)
-        ->get();
-        $books->load('promotion');
+       
+        if(Auth::user()){
+            $book = $this->book->with(['promotion', 'comment'])->find($id);
+            $books = Book::where('category_id', $book->category_id)
+            ->where('id', '<>', $book->id)
+            ->take(4)
+            ->get();
+            $user_id = Auth()->user()->id;
+            $bookInCart = Cart::where('user_id', $user_id)->first();
+            $book->load('promotion', 'comment');
+            return view('font.shop.detail',compact('book'),['books'=>$books,'bookInCart'=>$bookInCart,'id'=>$id]);
+        }
+        else{
+            $book = $this->book->with(['promotion', 'comment'])->find($id);
+            $books = Book::where('category_id', $book->category_id)
+            ->where('id', '<>', $book->id)
+            ->take(4)
+            ->get();
+            $book->load('promotion', 'comment');
+            return view('font.shop.detail',compact('book'),['books'=>$books,'id'=>$id]);
+        }
+       
+        
         
         // if(Auth::user()){
         //     $user_id = auth()->user()->id;
@@ -78,7 +94,7 @@ class ShopController extends Controller
         //     return view('font.shop.detail',compact('sanpham'),['products'=>$products,'totalQuantity' => $totalQuantity,'totalPrice' => $totalPrice]);
         // }
         // else{
-            return view('font.shop.detail',compact('book'),['books'=>$books]);
+           
         // }
     }
 

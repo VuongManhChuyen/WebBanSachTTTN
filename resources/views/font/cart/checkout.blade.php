@@ -75,9 +75,8 @@
                             <ul class="checkout__total__products">
                               
                                 <input type="hidden" name="cart_id" value="{{$cart_id}}">
+                                <input type="hidden" name="status_id" value="1">
                                 @foreach ($cart->cartuser as $cart)
-                                
-                                    <input type="hidden" name="status_id" value="1">
                                 <li>{{$key++}}. {{$cart->book->name_book}} <span>$ {{$cart->book_quantity*$cart->book_price}}</span></li>
                                 @endforeach
                             </ul>

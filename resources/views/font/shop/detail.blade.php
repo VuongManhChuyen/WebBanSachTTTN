@@ -79,7 +79,7 @@
             <div class="header__top__right">
               <div class="header__top__links">
                 @if (!Auth::user())
-                <a href="login">Sign in</a>
+                <a href="{{route('login')}}">Sign in</a>
                 <a href="register">Register</a>
                 @else
               </div>
@@ -112,7 +112,7 @@
           <nav class="header__menu mobile-menu">
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/shop">Shop</a></li>
+              <li><a href="{{route('shopp.index')}}">Shop</a></li>
               <li>
                 <a href="/cart">Shopping Cart</a>
               </li>
@@ -128,10 +128,10 @@
             ><img src="{{asset('font/img/icon/search.png')}}" alt=""
           /></a>
           {{-- <a href="#"><img src="font/img/icon/heart.png" alt="" /></a> --}}
-          <a href="/cart"
+          {{-- <a href="/cart"
             ><img src="{{asset('font/img/icon/cart.png')}}" alt="" /> <span>{{$totalQuantity}}</span></a
-          >
-          <div class="price">${{$totalPrice}}</div>
+          > --}}
+          {{-- <div class="price">${{$totalPrice}}</div> --}}
         </div>
       </div>
        @else
@@ -165,7 +165,7 @@
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
                             <a href="/">Home</a>
-                            <a href="/shop">Shop</a>
+                            <a href="{{route('shopp.index')}}">Shop</a>
                             <span>Book Details</span>
                         </div>
                     </div>
@@ -209,8 +209,9 @@
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                         <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
                                         @if (Auth::user())
-                                        <input type="hidden" name="cart_id" value="{{$cart_id}}">
+                                        <input type="hidden" name="cart_id" value="{{$bookInCart->id}}">
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
+                                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                         <input class="hidden" type="number" name="book_price" value="{{$book->promotion->price_promotion}}">
                                         <input class="hidden" type="number" name="book_quantity" value="1">
                                         @endif
@@ -238,7 +239,56 @@
    
     </section>
     <!-- Shop Details Section End -->
-
+    <section style="background-color: #eee;">
+      <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-12 col-lg-10 col-xl-8">
+            <div class="card">
+              <div class="card-body">
+                @foreach ($book->comment as $book)
+                    
+               
+                <div class="d-flex flex-start align-items-center">
+                  <img class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="60"
+                    height="60" />
+                  <div>
+                    <h6 class="fw-bold text-primary mb-1">{{$book->name_user}}</h6>
+                  </div>
+                </div>
+                <p class="mt-3 mb-4 pb-2">
+                  {{$book->comment}}
+                </p>
+                @endforeach
+                <div class="small d-flex justify-content-start">
+                </div>
+              </div>
+              <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                @if (Auth::user())
+                <form action="{{route('comment.store')}}" method="POST">
+                  @csrf
+                  @method('POST')
+                  <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                  <input type="hidden" name="book_id" value="{{$id}}">
+                  <input type="hidden" name="name_user" value="{{Auth::user()->name}}">
+                <div class="d-flex flex-start w-100">
+                  <div class="form-outline w-100">
+                    <textarea required class="form-control"name="comment" rows="4"
+                      style="background: #fff;"></textarea>
+                    <label class="form-label">Message</label>
+                  </div>
+                </div>
+                <div class="float-end mt-2 pt-1">
+                  <button type="submit" class="btn btn-outline-primary btn-sm">Post comment</button>
+                </div>
+              </form>
+              @endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- Related Section Begin -->
     <section class="related spad">
         <div class="container">
@@ -251,7 +301,7 @@
                 @foreach ($books as $sp)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <a href="{{route('shop.show',$sp->id)}}">
+                        <a href="{{route('shopp.show',$sp->id)}}">
                             <img src="{{asset('/storage/images/'.$sp->img)}}" alt="" style="height: 200px;width: 300px;">
                         </a>
                         <div class="product__item__text">

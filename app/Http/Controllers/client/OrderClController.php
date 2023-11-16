@@ -13,19 +13,21 @@ class OrderClController extends Controller
     {
         $userID = auth()->user()->id;
         $userOrders = Order::where('user_id', Auth::id())->get();
-       if(!$userOrders->isEmpty()){
-        $userID = auth()->user()->id;
-        $order = Order::join('cart', 'order.cart_id', '=', 'cart.id')
-        ->join('cartuser', 'cart.id', '=', 'cartuser.cart_id')
-        ->join('book', 'cartuser.book_id', '=', 'book.id')
-        ->join('status', 'order.status_id', '=', 'status.id')
-        ->select('order.*', 'cart.*', 'cartuser.*', 'book.*', 'status.*','order.id as order_id',)
-        ->where('order.user_id', $userID)
-        ->get();
-             return view('font.order.index',compact('order'));
+        if (!$userOrders->isEmpty()) {
+            $userID = auth()->user()->id;
+        
+            $order = Order::join('cart', 'order.cart_id', '=', 'cart.id')
+                ->join('cartuser', 'cart.id', '=', 'cartuser.cart_id')
+                ->join('book', 'cartuser.book_id', '=', 'book.id')
+                ->join('status', 'order.status_id', '=', 'status.id')
+                ->select('order.*', 'cart.*', 'cartuser.*', 'book.*', 'status.*', 'order.id as order_id')
+                ->where('order.user_id', $userID)
+                ->get();
+        
+            return view('font.order.index', compact('order'));
         }
         else{
-                return redirect()->route('shop.index')
+                return redirect()->route('cart.index')
             ->with('success', 'Không có đơn đặt hàng ');
             }
     }

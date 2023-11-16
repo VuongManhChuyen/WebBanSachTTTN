@@ -70,7 +70,7 @@
                             <h6>{{$order->name_status}}</h6>
                           </td>  
                           <td class="cart__close">
-                            <form action="{{route('ordercl.destroy',$order->order_id)}}"method="POST">
+                            <form action="{{route('ordercl.destroy',$order->id)}}"method="POST">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-sm btn-primary"><i class="fa fa-close"></button></i>

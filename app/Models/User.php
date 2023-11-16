@@ -42,6 +42,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Cartuser::class);
     }
+    public function book(){
+        return $this->belongsTo(Book::class);
+   }
+   public function comment(){
+    return $this->belongsTo(Comment::class);
+}
     /**
      * The attributes that should be hidden for serialization.
      *
