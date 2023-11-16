@@ -28,13 +28,17 @@ class OrderController extends Controller
     }
     public function index()
     {
+        if(Auth::user() && Auth::user()->role_id ==2){
         $order = Order::join('cart', 'order.cart_id', '=', 'cart.id')
         ->join('cartuser', 'cart.id', '=', 'cartuser.cart_id')
         ->join('book', 'cartuser.book_id', '=', 'book.id')
         ->join('status', 'order.status_id', '=', 'status.id')
         ->select('order.*', 'cart.*', 'cartuser.*', 'book.*', 'status.*','order.id as order_id',)
         ->get();;
-    return view('admin.order.list',compact('order'));
+        return view('admin.order.list',compact('order'));
+        }else{
+            return redirect()->route('login');
+        }
     }
     public function create()
     {

@@ -114,7 +114,7 @@
                                             <li><a href="#"><img src="font/img/icon/heart.png" alt=""></a></li>
                                             <li><a href="#"><img src="font/img/icon/compare.png" alt=""> <span>Compare</span></a>
                                             </li>
-                                            <li><a href="{{ route('shop.show', $book->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
+                                            <li><a href="{{ route('shopp.show', $book->id) }}"><img src="font/img/icon/search.png" alt=""></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
@@ -138,24 +138,13 @@
                                         </div>
                                         <h5><strike>${{$book->price}}</strike>  $ {{$book->promotion->price_promotion}}</h5>
                                         <div class="">
-                                            <a href="{{route('shop.show',$book->id)}}">Chi tiết</a>
+                                            <a href="{{route('shopp.show',$book->id)}}">Chi tiết</a>
                                         </div>
                                     </div>
                                 </form>
                                 </div>
                             </div>
                             @endforeach
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="product__pagination">
-                                    <a class="active" href="#">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <span>...</span>
-                                    <a href="#">21</a>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -11,10 +11,12 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        // if(Auth::user()->role_id==2){
+        if(Auth::user() && Auth::user()->role_id ==2){
             $category = Category::get();
             return view('admin.category.list',['category' => $category]);
-        
+         } else{
+                return redirect()->route('login');
+            }
     }
     public function create()
     {

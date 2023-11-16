@@ -4,14 +4,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Status;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class StatusController extends Controller
 {
 
     public function index()
     {
+        if(Auth::user() && Auth::user()->role_id ==2){
         $status = Status::get();
-            return view('admin.status.list',['status' => $status]);
+        return view('admin.status.list',['status' => $status]);
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function create()

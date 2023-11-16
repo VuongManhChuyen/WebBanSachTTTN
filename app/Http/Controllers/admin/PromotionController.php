@@ -8,10 +8,12 @@ use Illuminate\Support\Facades\Auth;
 class PromotionController extends Controller
 {
     public function index()
-    {
+    {   if(Auth::user() && Auth::user()->role_id ==2){
             $promotion = Promotion::all();
             return view('admin.promotion.list',['promotion' => $promotion]);
-       
+    }else{
+        return redirect()->route('login');
+    }
     }
     public function create()
     {

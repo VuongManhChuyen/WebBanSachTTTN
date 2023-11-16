@@ -14,12 +14,14 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {       if(Auth::user() && Auth::user()->role_id ==2){
             $taikhoan = User::get();
             $role=Role::get();
             $taikhoan->load('role');
             return view('admin.user.list',['taikhoan'=>$taikhoan,'role'=>$role]);
-
+    }else{
+        return redirect()->route('login');
+    }
         
     }
     public function create()

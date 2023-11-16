@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Auth;
 class BannerController extends Controller
 {
     public function index()
-    {
+    {    if(Auth::user() && Auth::user()->role_id ==2){
             $banner = Banner::get();
             return view('admin.banner.list',['banner' => $banner]);
+    }else{
+        return redirect()->route('login');
     }
+}
     public function create()
     {
         $banner = Banner::get();

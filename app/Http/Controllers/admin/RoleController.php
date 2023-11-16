@@ -14,10 +14,14 @@ class RoleController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {   
+        if(Auth::user() && Auth::user()->role_id ==2){
             $role = Role::get();
             return view('admin.role.list',['role' => $role]);       
-    }
+        }else{
+                return redirect()->route('login');
+            }
+        }
     public function create()
     {
         return view('admin.role.create');

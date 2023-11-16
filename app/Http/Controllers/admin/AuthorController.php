@@ -10,10 +10,12 @@ class AuthorController extends Controller
 {
     public function index()
     {
-    
+        if(Auth::user() && Auth::user()->role_id ==2){
             $author = Author::get();
             return view('admin.author.list',['author' => $author]);
-    
+        }else{
+            return redirect()->route('login');
+        }
         
     }
     public function create()

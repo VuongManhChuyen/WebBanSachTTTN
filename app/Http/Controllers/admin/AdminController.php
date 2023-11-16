@@ -9,7 +9,11 @@ class AdminController extends Controller
 {
     public function index()
     {
-       
+       if(Auth::user() && Auth::user()->role_id ==2){
         return view('admin.layout');
-    }
+        }
+        else{
+            return redirect()->route('login');
+        }
+}
 }

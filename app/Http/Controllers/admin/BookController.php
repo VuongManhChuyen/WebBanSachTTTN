@@ -16,11 +16,13 @@ class BookController extends Controller
 {
 
     public function index()
-    {
+    {       if(Auth::user() && Auth::user()->role_id ==2){
             $book = Book::all();
             $book->load('category','author','promotion');
             return view('admin.book.list',['book' => $book]);
-     
+    }else{
+        return redirect()->route('login');
+    }
         
     }
     public function create()
